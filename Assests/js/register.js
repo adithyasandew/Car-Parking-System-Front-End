@@ -2,16 +2,16 @@ document.getElementById('user').addEventListener('change', function() {
     const selectedUser = this.value;
     const uniIdInput = document.getElementById('uniId');
     switch(selectedUser) {
-      case 'student':
+      case 'STUDENT':
         uniIdInput.placeholder = 'Student ID';
         break;
-      case 'lecturer':
+      case 'LECTURE':
         uniIdInput.placeholder = 'Lecturer ID';
         break;
-      case 'visitor':
+      case 'VISITOR':
         uniIdInput.placeholder = 'NIC';
         break;
-      case 'shuttle-service':
+      case 'SHUTTLE_SERVICE':
         uniIdInput.placeholder = 'Licence Number';
         break;
       default:
@@ -69,6 +69,45 @@ document.getElementById('user').addEventListener('change', function() {
   
     // If all fields are filled and email and password are valid, submit the form
     if (name && uniId && vehicleNumber && vehicleBrand && email && password && isValidEmail(email) && isValidPassword(password)) {
+      let user_type = document.getElementById('user').value;
+      let vehicle_type = document.getElementById('vehicle-type').value;
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("Cookie", "JSESSIONID=6EA94283125436D9F6693E0A5E2CA7E9");
+
+      const raw = JSON.stringify({
+        "name": name,
+        "uniId": uniId,
+        "vehicleNumber": vehicleNumber,
+        "vehicleBrand": vehicleBrand,
+        "email": email,
+        "password": password,
+        "userType": user_type,
+        "vehicleType": vehicle_type
+      });
+
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+      };
+
+      fetch("http://localhost:8080/register", requestOptions)
+          .then((response) => response.text())
+          .then((result) => {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Your work has been saved",
+              showConfirmButton: false,
+              timer: 1500
+            });
+            console.log(result)
+            localStorage.setItem('user',result)
+            window.location.replace('/Car-Parking-System-Front-End/dashboard.html')
+          })
+          .catch((error) => console.error(error));
       console.log('Form submitted');
       // Perform form submission logic here
     }

@@ -1,4 +1,5 @@
 function validateForm(event) {
+  localStorage.setItem("key","val1");
   event.preventDefault();
 
   // Validate email
@@ -42,6 +43,41 @@ function validateForm(event) {
   // If both email and password are provided and password meets all criteria, submit the form
   if (email && password && password.length >= 8 && /(?=.*[A-Z])/.test(password) && /(?=.*\d)/.test(password) && /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(password)) {
     console.log('Form submitted');
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Cookie", "JSESSIONID=6EA94283125436D9F6693E0A5E2CA7E9");
+
+    const raw = JSON.stringify({
+      "email": email,
+      "password": password
+    });
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow"
+    };
+
+    fetch("http://localhost:8080/login", requestOptions)
+        .then((response) => response.text())
+        .then((result) => {
+          console.log(JSON.parse(result).token)
+          if(JSON.parse(result).token){
+            localStorage.setItem('user',result)
+            window.location.replace('/Car-Parking-System-Front-End/dashboard.html')
+            return;
+          }
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Credentials Not Valid!",
+            footer: '<a href="#">Why do I have this issue?</a>'
+          });
+        })
+        .catch((error) => console.error(error));
+
+
     if (rememberMeChecked) {
       console.log('Remember me checked');
     }

@@ -12,6 +12,7 @@
     <!-- My CSS -->
     <link rel="stylesheet" href="./Assests/css/dashboard.css" />
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>dashboard</title>
   </head>
   <body>
@@ -88,14 +89,14 @@
           <li>
             <i class="bx bx-right-top-arrow-circle"></i>
             <span class="text">
-              <h3>E-12</h3>
+              <h3 id="slot_number">E-12</h3>
               <p>Your Slot Number</p>
             </span>
           </li>
           <li>
             <i class="bx bxs-dollar-circle"></i>
             <span class="text">
-              <h3>Rs.400</h3>
+              <h3 id="payment">Rs.400</h3>
               <p>Pending to Pay</p>
             </span>
           </li>
@@ -107,5 +108,7 @@
     <!-- CONTENT -->
 
     <script src="./Assests/js/menu.js"></script>
+    <script src="./Assests/js/dashboard.js"></script>
+
   </body>
 </html>

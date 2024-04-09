@@ -9,6 +9,7 @@
   />
     <!-- <link rel="stylesheet" href="qr.css"> -->
     <link rel="stylesheet" href="./Assests/css/dashboard.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>QR CODE</title>
 </head>
 <body style="background-color: #ebebeb">
@@ -71,11 +72,11 @@
         </ul>
         <!-- NAVBAR -->
      <div class="flex flex-col items-center justify-center mt-10">
-        <div class="w-full max-w-lg h-200 bg-white rounded-xl border border-gray-30 shadow-xl shadow-md p-2">
-            <img src="/Assests/img/pngwing.com.png" alt="QRCODE">
+        <div class="flex flex-col items-center justify-center w-full max-w-lg h-200 bg-white rounded-xl border border-gray-30 shadow-xl shadow-md p-2">
+            <img id="qrImage" src="/Assests/img/pngwing.com.png" alt="QRCODE">
         </div>
         <div class="btn">
-            <button type="submit"
+            <button id="btnGenerateQr" type="submit"
             
             class="bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-20 rounded-md mt-4 hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150 my-2"
           
@@ -84,5 +85,6 @@
     </div>
     </section>
     <script src="./Assests/js/menu.js"></script>
+    <script src="./Assests/js/qr.js"></script>
 </body>
 </html>
